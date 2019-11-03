@@ -1,4 +1,4 @@
-# Snoffleware.LLBLGen.Identity.Core
+# Snoffleware.LLBLGen.Identity
 
 A .NET Core 3.0 Identity custom UserStore/RoleStore implementation using LLBLGen (https://llblgen.com) as the persistence provider.
 
