@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName></SccProjectName>
+    <SccProvider></SccProvider>
+    <SccAuxPath></SccAuxPath>
+    <SccLocalPath></SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UserSecretsId>aspnet-Snoffleware.LLBLGen.Identity.WebTest-00DB9B36-00E2-4513-A8B5-16BC7D178D28</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Core" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="3.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.7.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Snoffleware.LLBLGen.Identity.Core\Snoffleware.LLBLGen.Identity.Core.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Reference Include="SD.LLBLGen.Pro.DQE.SqlServer">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Solutions Design\LLBLGen Pro v5.6\Frameworks\LLBLGen Pro\RuntimeLibraries\CompiledRuntimeLibraries\Netstandard2.0\SD.LLBLGen.Pro.DQE.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="SD.LLBLGen.Pro.ORMSupportClasses">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Solutions Design\LLBLGen Pro v5.6\Frameworks\LLBLGen Pro\RuntimeLibraries\CompiledRuntimeLibraries\Netstandard2.0\SD.LLBLGen.Pro.ORMSupportClasses.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

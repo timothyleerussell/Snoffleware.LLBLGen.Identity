@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName></SccProjectName>
+    <SccProvider></SccProvider>
+    <SccAuxPath></SccAuxPath>
+    <SccLocalPath></SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+    <UserSecretsId>6447caa4-5462-4f05-aac7-92430512a54f</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+  </ItemGroup>
+
+  <ItemGroup>
+	<!--<PackageReference Include="System.Data.SqlClient" Version="4.6.0" />-->
+    <PackageReference Include="Microsoft.AspNetCore.CookiePolicy" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.0.0" />
+    <PackageReference Include="coverlet.collector" Version="1.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.Data.SqlClient" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Snoffleware.LLBLGen.Identity.Core\Snoffleware.LLBLGen.Identity.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SD.LLBLGen.Pro.DQE.SqlServer">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Solutions Design\LLBLGen Pro v5.6\Frameworks\LLBLGen Pro\RuntimeLibraries\CompiledRuntimeLibraries\Netstandard2.0\SD.LLBLGen.Pro.DQE.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="SD.LLBLGen.Pro.ORMSupportClasses">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Solutions Design\LLBLGen Pro v5.6\Frameworks\LLBLGen Pro\RuntimeLibraries\CompiledRuntimeLibraries\Netstandard2.0\SD.LLBLGen.Pro.ORMSupportClasses.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

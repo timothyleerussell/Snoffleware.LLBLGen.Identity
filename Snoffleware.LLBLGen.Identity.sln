@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snoffleware.LLBLGen.Identity.Core", "Snoffleware.LLBLGen.Identity.Core\Snoffleware.LLBLGen.Identity.Core.csproj", "{C38EC14A-449E-4B87-8FC6-57CAC06D0963}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snoffleware.LLBLGen.Identity.Core.Data", "Snoffleware.LLBLGen.Identity.Core.Data\Snoffleware.LLBLGen.Identity.Core.Data.csproj", "{9CEA0392-84AA-4A06-83EB-3D4E820B95B9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notes", "Notes", "{EAD872FD-E5EC-41B1-A8F0-3404E3F3AAD4}"
+	ProjectSection(SolutionItems) = preProject
+		License.txt = License.txt
+		Microsoft-Identity-Tables-From-Scaffolding-net-core-2.2.txt = Microsoft-Identity-Tables-From-Scaffolding-net-core-2.2.txt
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snoffleware.LLBLGen.Identity.Test", "Snoffleware.LLBLGen.Identity.Test\Snoffleware.LLBLGen.Identity.Test.csproj", "{AE09BDBC-F689-4CD4-B66D-7FC5A878E2B3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snoffleware.LLBLGen.Identity.WebTest", "Snoffleware.LLBLGen.Identity.WebTest\Snoffleware.LLBLGen.Identity.WebTest.csproj", "{8A70D06C-A8E9-4437-B5AA-D43B56B8E914}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C38EC14A-449E-4B87-8FC6-57CAC06D0963}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C38EC14A-449E-4B87-8FC6-57CAC06D0963}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C38EC14A-449E-4B87-8FC6-57CAC06D0963}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C38EC14A-449E-4B87-8FC6-57CAC06D0963}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CEA0392-84AA-4A06-83EB-3D4E820B95B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CEA0392-84AA-4A06-83EB-3D4E820B95B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CEA0392-84AA-4A06-83EB-3D4E820B95B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CEA0392-84AA-4A06-83EB-3D4E820B95B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE09BDBC-F689-4CD4-B66D-7FC5A878E2B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE09BDBC-F689-4CD4-B66D-7FC5A878E2B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE09BDBC-F689-4CD4-B66D-7FC5A878E2B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE09BDBC-F689-4CD4-B66D-7FC5A878E2B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A70D06C-A8E9-4437-B5AA-D43B56B8E914}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A70D06C-A8E9-4437-B5AA-D43B56B8E914}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A70D06C-A8E9-4437-B5AA-D43B56B8E914}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A70D06C-A8E9-4437-B5AA-D43B56B8E914}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {52DEE91A-C1DB-4C09-A11B-D641CF7C5921}
+	EndGlobalSection
+EndGlobal
