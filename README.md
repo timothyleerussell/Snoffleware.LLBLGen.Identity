@@ -1,6 +1,6 @@
 # Snoffleware.LLBLGen.Identity
 
-A .NET Core 3.0 Identity custom UserStore/RoleStore implementation using LLBLGen (https://llblgen.com) as the persistence provider.
+A .NET Core 3.1 Identity custom UserStore/RoleStore implementation using LLBLGen (https://llblgen.com) as the persistence provider.
 
 Author: Timothy Lee Russell / Snoffleware Studios LLC / https://snoffleware.com
 
@@ -10,7 +10,7 @@ License: MIT
 
 ## What is it and who is it for?
 
-If you use LLBLGen and .NET Core 3.0 and want to add the Microsoft identity tables to a new or existing database to provide authentication and authorization leveraging the built-in .NET Core security machinations while also having a unified interface to your data including the Identity tables using LLBLGen, this is the project for you.
+If you use LLBLGen and .NET Core 3.1 and want to add the Microsoft identity tables to a new or existing database to provide authentication and authorization leveraging the built-in .NET Core security machinations while also having a unified interface to your data including the Identity tables using LLBLGen, this is the project for you.
 
 ## Tests
 
@@ -22,13 +22,13 @@ Tests should pack out all their trash.
 
 ## Security implications
 
-We're not overriding any of the .net core 3.0 identity functionality other than the User/Role stores. We simply want to change the persistence provider. As long as we're storing and retrieving the values correctly, which the tests attempt to validate, we're safely leveraging the default .net core security infrastructure but with LLBLGen as the ORM.
+We're not overriding any of the .net core 3.1 Identity functionality other than the User/Role stores. We simply want to change the persistence provider. As long as we're storing and retrieving the values correctly, which the tests attempt to validate, we're safely leveraging the default .net core security infrastructure but with LLBLGen as the ORM.
 
 That *should* mean access to all of the built-in authorization attributes, such as Authorize, Authorize(Roles) and Authorize(Policies).
 
 This lets us add .net core identity authentication and authorization to a legacy database easily and move it to Azure. Your use case may vary.
 
-Would love to have someone at Microsoft do a code review!
+Would love to have someone at Microsoft do a code review! (Hasn't happened yet but would be appreciated.)
 
 ## WebTest site details
 
