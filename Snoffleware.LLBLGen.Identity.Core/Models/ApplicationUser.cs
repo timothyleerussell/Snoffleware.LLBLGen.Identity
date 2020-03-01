@@ -34,5 +34,8 @@ namespace Snoffleware.LLBLGen.Identity.Core.Models
         //public DateTimeOffset? LockoutEnd { get; set; }
         //public bool LockoutEnabled { get; set; }
         //public Int32 AccessFailedCount { get; set; }
+
+        //new members
+        public string ProfileImage { get; set; }
     }
 }

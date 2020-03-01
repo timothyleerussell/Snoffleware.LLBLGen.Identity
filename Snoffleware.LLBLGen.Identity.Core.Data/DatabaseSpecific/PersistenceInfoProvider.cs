@@ -68,7 +68,7 @@ namespace Snoffleware.LLBLGen.Identity.Core.Data.DatabaseSpecific
 		/// <summary>Inits AspNetUserEntity's mappings</summary>
 		private void InitAspNetUserEntityMappings()
 		{
-			this.AddElementMapping("AspNetUserEntity", @"Snoffleware-LLBLGen-Identity-Dev", @"dbo", "AspNetUsers", 15, 0);
+			this.AddElementMapping("AspNetUserEntity", @"Snoffleware-LLBLGen-Identity-Dev", @"dbo", "AspNetUsers", 16, 0);
 			this.AddElementFieldMapping("AspNetUserEntity", "AccessFailedCount", "AccessFailedCount", false, "Int", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
 			this.AddElementFieldMapping("AspNetUserEntity", "ConcurrencyStamp", "ConcurrencyStamp", true, "NVarChar", 2147483647, 0, 0, false, "", null, typeof(System.String), 1);
 			this.AddElementFieldMapping("AspNetUserEntity", "Email", "Email", true, "NVarChar", 256, 0, 0, false, "", null, typeof(System.String), 2);
@@ -81,9 +81,10 @@ namespace Snoffleware.LLBLGen.Identity.Core.Data.DatabaseSpecific
 			this.AddElementFieldMapping("AspNetUserEntity", "PasswordHash", "PasswordHash", true, "NVarChar", 2147483647, 0, 0, false, "", null, typeof(System.String), 9);
 			this.AddElementFieldMapping("AspNetUserEntity", "PhoneNumber", "PhoneNumber", true, "NVarChar", 2147483647, 0, 0, false, "", null, typeof(System.String), 10);
 			this.AddElementFieldMapping("AspNetUserEntity", "PhoneNumberConfirmed", "PhoneNumberConfirmed", false, "Bit", 0, 0, 0, false, "", null, typeof(System.Boolean), 11);
-			this.AddElementFieldMapping("AspNetUserEntity", "SecurityStamp", "SecurityStamp", true, "NVarChar", 2147483647, 0, 0, false, "", null, typeof(System.String), 12);
-			this.AddElementFieldMapping("AspNetUserEntity", "TwoFactorEnabled", "TwoFactorEnabled", false, "Bit", 0, 0, 0, false, "", null, typeof(System.Boolean), 13);
-			this.AddElementFieldMapping("AspNetUserEntity", "UserName", "UserName", true, "NVarChar", 256, 0, 0, false, "", null, typeof(System.String), 14);
+			this.AddElementFieldMapping("AspNetUserEntity", "ProfileImage", "ProfileImage", true, "NVarChar", 2147483647, 0, 0, false, "", null, typeof(System.String), 12);
+			this.AddElementFieldMapping("AspNetUserEntity", "SecurityStamp", "SecurityStamp", true, "NVarChar", 2147483647, 0, 0, false, "", null, typeof(System.String), 13);
+			this.AddElementFieldMapping("AspNetUserEntity", "TwoFactorEnabled", "TwoFactorEnabled", false, "Bit", 0, 0, 0, false, "", null, typeof(System.Boolean), 14);
+			this.AddElementFieldMapping("AspNetUserEntity", "UserName", "UserName", true, "NVarChar", 256, 0, 0, false, "", null, typeof(System.String), 15);
 		}
 
 		/// <summary>Inits AspNetUserClaimEntity's mappings</summary>

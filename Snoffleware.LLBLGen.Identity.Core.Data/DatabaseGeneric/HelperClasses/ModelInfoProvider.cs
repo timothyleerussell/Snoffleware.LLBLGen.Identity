@@ -87,6 +87,7 @@ namespace Snoffleware.LLBLGen.Identity.Core.Data.HelperClasses
 			this.AddElementFieldInfo("AspNetUserEntity", "PasswordHash", typeof(System.String), false, false, false, true,  (int)AspNetUserFieldIndex.PasswordHash, 2147483647, 0, 0);
 			this.AddElementFieldInfo("AspNetUserEntity", "PhoneNumber", typeof(System.String), false, false, false, true,  (int)AspNetUserFieldIndex.PhoneNumber, 2147483647, 0, 0);
 			this.AddElementFieldInfo("AspNetUserEntity", "PhoneNumberConfirmed", typeof(System.Boolean), false, false, false, false,  (int)AspNetUserFieldIndex.PhoneNumberConfirmed, 0, 0, 0);
+			this.AddElementFieldInfo("AspNetUserEntity", "ProfileImage", typeof(System.String), false, false, false, true,  (int)AspNetUserFieldIndex.ProfileImage, 2147483647, 0, 0);
 			this.AddElementFieldInfo("AspNetUserEntity", "SecurityStamp", typeof(System.String), false, false, false, true,  (int)AspNetUserFieldIndex.SecurityStamp, 2147483647, 0, 0);
 			this.AddElementFieldInfo("AspNetUserEntity", "TwoFactorEnabled", typeof(System.Boolean), false, false, false, false,  (int)AspNetUserFieldIndex.TwoFactorEnabled, 0, 0, 0);
 			this.AddElementFieldInfo("AspNetUserEntity", "UserName", typeof(System.String), false, false, false, true,  (int)AspNetUserFieldIndex.UserName, 256, 0, 0);

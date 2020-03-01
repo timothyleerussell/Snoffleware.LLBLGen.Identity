@@ -63,6 +63,8 @@ namespace Snoffleware.LLBLGen.Identity.Core.Data.HelperClasses
 		public static EntityField2 PhoneNumber { get { return ModelInfoProviderSingleton.GetInstance().CreateField2(AspNetUserFieldIndex.PhoneNumber); }}
 		/// <summary>Creates a new AspNetUserEntity.PhoneNumberConfirmed field instance</summary>
 		public static EntityField2 PhoneNumberConfirmed { get { return ModelInfoProviderSingleton.GetInstance().CreateField2(AspNetUserFieldIndex.PhoneNumberConfirmed); }}
+		/// <summary>Creates a new AspNetUserEntity.ProfileImage field instance</summary>
+		public static EntityField2 ProfileImage { get { return ModelInfoProviderSingleton.GetInstance().CreateField2(AspNetUserFieldIndex.ProfileImage); }}
 		/// <summary>Creates a new AspNetUserEntity.SecurityStamp field instance</summary>
 		public static EntityField2 SecurityStamp { get { return ModelInfoProviderSingleton.GetInstance().CreateField2(AspNetUserFieldIndex.SecurityStamp); }}
 		/// <summary>Creates a new AspNetUserEntity.TwoFactorEnabled field instance</summary>

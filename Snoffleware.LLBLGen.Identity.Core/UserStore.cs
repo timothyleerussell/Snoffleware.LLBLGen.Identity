@@ -76,7 +76,8 @@ namespace Snoffleware.LLBLGen.Identity.Core
                                 TwoFactorEnabled = userEntity.TwoFactorEnabled,
                                 LockoutEnd = userEntity.LockoutEnd,
                                 LockoutEnabled = userEntity.LockoutEnabled,
-                                AccessFailedCount = userEntity.AccessFailedCount
+                                AccessFailedCount = userEntity.AccessFailedCount,
+                                ProfileImage = userEntity.ProfileImage
                             };
                     return q;
                 }
@@ -209,6 +210,7 @@ namespace Snoffleware.LLBLGen.Identity.Core
                 userEntity.LockoutEnd = user.LockoutEnd;
                 userEntity.LockoutEnabled = user.LockoutEnabled;
                 userEntity.AccessFailedCount = user.AccessFailedCount;
+                userEntity.ProfileImage = user.ProfileImage;
 
                 bool saved = await adapter.SaveEntityAsync(userEntity, cancellationToken);
                 if (!saved)
@@ -399,6 +401,11 @@ namespace Snoffleware.LLBLGen.Identity.Core
         public Task<bool> GetPhoneNumberConfirmedAsync(ApplicationUser user, CancellationToken cancellationToken)
         {
             return Task.FromResult(user.PhoneNumberConfirmed);
+        }
+
+        public Task<string> GetProfileImageAsync(ApplicationUser user, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(user.ProfileImage);
         }
         public async Task<IList<string>> GetRolesAsync(ApplicationUser user, CancellationToken cancellationToken)
         {
@@ -715,6 +722,12 @@ namespace Snoffleware.LLBLGen.Identity.Core
             user.PhoneNumber = phoneNumber;
             return Task.CompletedTask;
         }
+        public Task SetProfileImageAsync(ApplicationUser user, string profileImage)
+        {
+            user.ProfileImage = profileImage;
+            return Task.CompletedTask;
+        }
+
         public Task SetPhoneNumberConfirmedAsync(ApplicationUser user, bool confirmed, CancellationToken cancellationToken)
         {
             user.PhoneNumberConfirmed = confirmed;

@@ -269,6 +269,14 @@ namespace Snoffleware.LLBLGen.Identity.Core.Data.EntityClasses
 			set	{ SetValue((int)AspNetUserFieldIndex.PhoneNumberConfirmed, value); }
 		}
 
+		/// <summary>The ProfileImage property of the Entity AspNetUser<br/><br/></summary>
+		/// <remarks>Mapped on  table field: "AspNetUsers"."ProfileImage".<br/>Table field type characteristics (type, precision, scale, length): NVarChar, 0, 0, 2147483647.<br/>Table field behavior characteristics (is nullable, is PK, is identity): true, false, false</remarks>
+		public virtual System.String ProfileImage
+		{
+			get { return (System.String)GetValue((int)AspNetUserFieldIndex.ProfileImage, true); }
+			set	{ SetValue((int)AspNetUserFieldIndex.ProfileImage, value); }
+		}
+
 		/// <summary>The SecurityStamp property of the Entity AspNetUser<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "AspNetUsers"."SecurityStamp".<br/>Table field type characteristics (type, precision, scale, length): NVarChar, 0, 0, 2147483647.<br/>Table field behavior characteristics (is nullable, is PK, is identity): true, false, false</remarks>
 		public virtual System.String SecurityStamp
@@ -343,6 +351,8 @@ namespace Snoffleware.LLBLGen.Identity.Core.Data
 		PhoneNumber,
 		///<summary>PhoneNumberConfirmed. </summary>
 		PhoneNumberConfirmed,
+		///<summary>ProfileImage. </summary>
+		ProfileImage,
 		///<summary>SecurityStamp. </summary>
 		SecurityStamp,
 		///<summary>TwoFactorEnabled. </summary>
