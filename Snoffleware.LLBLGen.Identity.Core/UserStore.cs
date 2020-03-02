@@ -402,7 +402,6 @@ namespace Snoffleware.LLBLGen.Identity.Core
         {
             return Task.FromResult(user.PhoneNumberConfirmed);
         }
-
         public Task<string> GetProfileImageAsync(ApplicationUser user, CancellationToken cancellationToken)
         {
             return Task.FromResult(user.ProfileImage);
@@ -722,12 +721,11 @@ namespace Snoffleware.LLBLGen.Identity.Core
             user.PhoneNumber = phoneNumber;
             return Task.CompletedTask;
         }
-        public Task SetProfileImageAsync(ApplicationUser user, string profileImage)
+        public Task SetProfileImageAsync(ApplicationUser user, string profileImage, CancellationToken cancellationToken)
         {
             user.ProfileImage = profileImage;
             return Task.CompletedTask;
         }
-
         public Task SetPhoneNumberConfirmedAsync(ApplicationUser user, bool confirmed, CancellationToken cancellationToken)
         {
             user.PhoneNumberConfirmed = confirmed;
@@ -806,6 +804,7 @@ namespace Snoffleware.LLBLGen.Identity.Core
                     userEntity.LockoutEnd = user.LockoutEnd;
                     userEntity.LockoutEnabled = user.LockoutEnabled;
                     userEntity.AccessFailedCount = user.AccessFailedCount;
+                    userEntity.ProfileImage = user.ProfileImage;
 
                     bool updated = await adapter.SaveEntityAsync(userEntity, cancellationToken);
 
