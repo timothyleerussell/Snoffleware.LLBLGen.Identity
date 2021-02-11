@@ -1,6 +1,6 @@
 # Snoffleware.LLBLGen.Identity
 
-A .NET Core 3.1 Identity custom UserStore/RoleStore implementation using LLBLGen (https://llblgen.com) as the persistence provider.
+A .NET Core 5.0 Identity custom UserStore/RoleStore implementation using LLBLGen (https://llblgen.com) as the persistence provider.
 
 Author: Timothy Lee Russell / Snoffleware Studios LLC / https://snoffleware.com
 
@@ -10,7 +10,7 @@ License: MIT
 
 ## What is it and who is it for?
 
-If you use LLBLGen and .NET Core 3.1 and want to add the Microsoft identity tables to a new or existing database to provide authentication and authorization leveraging the built-in .NET Core security machinations while also having a unified interface to your data including the Identity tables using LLBLGen, this is the project for you.
+If you use LLBLGen and .NET Core 5.0 and want to add the Microsoft identity tables to a new or existing database to provide authentication and authorization leveraging the built-in .NET Core security machinations while also having a unified interface to your data including the Identity tables using LLBLGen, this is the project for you.
 
 ## Tests
 
@@ -22,7 +22,7 @@ Tests should pack out all their trash.
 
 ## Security implications
 
-We're not overriding any of the .net core 3.1 Identity functionality other than the User/Role stores. We simply want to change the persistence provider. As long as we're storing and retrieving the values correctly, which the tests attempt to validate, we're safely leveraging the default .net core security infrastructure but with LLBLGen as the ORM.
+We're not overriding any of the .net core 5.0 Identity functionality other than the User/Role stores. We simply want to change the persistence provider. As long as we're storing and retrieving the values correctly, which the tests attempt to validate, we're safely leveraging the default .net core security infrastructure but with LLBLGen as the ORM.
 
 That *should* mean access to all of the built-in authorization attributes, such as Authorize, Authorize(Roles) and Authorize(Policies).
 
@@ -32,7 +32,7 @@ Would love to have someone at Microsoft do a code review! (Hasn't happened yet b
 
 ## WebTest site details
 
-The `WebTest` project features the 3.0 version of the scaffolded mvc identity area.
+The `WebTest` project currently uses the 3.0 version of the scaffolded mvc identity area.
 
 There are a couple changes in this project from the default scaffolding:
 
@@ -62,7 +62,7 @@ Code reviews by domain experts are so valuable. Don't be afraid to ask for help!
 
 	To set the secret, open a Powershell prompt inside each project directory and run the `dotnet user-secrets set` command. Following the security practice of keeping secrets outside of your code can help to prevent credential leaks.	   
 	`
-	PS> dotnet user-secrets set "ConnectionString.SQL Server (SqlClient)" "data source=YOURCOMPUTER\SQLINSTANCE;initial catalog=Snoffleware-LLBLGen-Identity-   Dev;integrated security=SSPI;persist security info=False"
+	PS> dotnet user-secrets set "ConnectionString.SQL Server (SqlClient)" "data source=YOURCOMPUTER\SQLINSTANCE;initial catalog=Snoffleware-LLBLGen-Identity-Dev;integrated security=SSPI;persist security info=False"
 	`
 4. Change the UserSecrets guid in the `Test` project -> `ConfigurationUtility` class.
 	This guid needs to match up with your user secrets store. You can find this guid after you setup user secrets by editing the `Test` project's `.csproj` file.
