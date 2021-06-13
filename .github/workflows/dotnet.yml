@@ -17,8 +17,17 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.NUGET_TOKEN}}
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
+      
+    - name: Publish
+      run: | # | character makes the "run" property multi-line, so we can put multiple commands in the same step
+        mkdir __out
+        dotnet pack -c Release -o __out --no-restore
+        dotnet nuget push "./__out/*.nupkg" --skip-duplicate --no-symbols true --api-key ${{secrets.NUGET_TOKEN}}
+        rm -rf __out
     
