@@ -11,7 +11,8 @@
     <TargetFramework>net5.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>Snoffleware Studios LLC</Company>
-    <Authors>Snoffleware Studios LLC</Authors>
+    <Authors>Timothy Lee Russell</Authors>
+    <PackageProjectUrl>https://github.com/timothyleerussell/Snoffleware.LLBLGen.Identity</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
