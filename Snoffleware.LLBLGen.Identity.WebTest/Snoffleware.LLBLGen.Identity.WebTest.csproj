@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
 	  <IsPackable>false</IsPackable>
     <UserSecretsId>aspnet-Snoffleware.LLBLGen.Identity.WebTest-00DB9B36-00E2-4513-A8B5-16BC7D178D28</UserSecretsId>
   </PropertyGroup>
