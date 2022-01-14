@@ -85,7 +85,7 @@ namespace Snoffleware.LLBLGen.Identity.Core
                 {
                     adapter.CloseConnection();
 
-                    //TODO: displose the adapter in the test after accessing the IQueryable object
+                    //TODO: dispose the adapter in the test after accessing the IQueryable object
 
                     //Using a using statement disposes the adapter, so I unrolled it to a try/finally but close the connection only.
                     //rather than allowing the using statement to dispose the adapter...works in the tests now but side effects?
