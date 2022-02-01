@@ -12,6 +12,8 @@ License: MIT
 
 If you use LLBLGen and .NET 6 and want to add the Microsoft identity tables to a new or existing database to provide authentication and authorization leveraging the built-in .NET 6 security machinations while also having a unified interface to your data including the Identity tables using LLBLGen, this is the project for you.
 
+The project is currently on LLBLGen Pro v.5.9.0.
+
 ## Tests
 
 I could not find much information about testing a custom UserStore but I felt that tests were important for something so crucial as a security-related piece. A best effort attempt has been made to write effective tests and to make it relatively easy to write new tests against the stores, allowing code coverage to expand as needed.
