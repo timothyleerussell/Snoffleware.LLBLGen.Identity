@@ -28,7 +28,7 @@ We're not overriding any of the Identity functionality other than the User/Role 
 
 That *should* mean access to all of the built-in authorization attributes, such as Authorize, Authorize(Roles) and Authorize(Policies).
 
-This lets us add .NET 7 identity authentication and authorization to a legacy database easily and move it to Azure. Your use case may vary.
+This lets us add Identity authentication and authorization to a legacy database easily and move it to Azure. Your use case may vary.
 
 ## WebTest site details
 
