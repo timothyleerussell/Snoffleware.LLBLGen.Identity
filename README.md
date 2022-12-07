@@ -1,6 +1,6 @@
 # Snoffleware.LLBLGen.Identity
 
-.NET 6 Identity custom UserStore/RoleStore implementation using LLBLGen (https://llblgen.com) as the persistence provider.
+.NET 7 Identity custom UserStore/RoleStore implementation using LLBLGen (https://llblgen.com) as the persistence provider.
 
 Author: Timothy Lee Russell / Snoffleware Studios LLC / https://snoffleware.com
 
@@ -10,7 +10,7 @@ License: MIT
 
 ## What is it and who is it for?
 
-If you use LLBLGen and .NET 6 and want to add the Microsoft identity tables to a new or existing database to provide authentication and authorization leveraging the built-in .NET 6 security machinations while also having a unified interface to your data including the Identity tables using LLBLGen, this is the project for you.
+If you use LLBLGen and .NET 7 and want to add the Microsoft identity tables to a new or existing database to provide authentication and authorization leveraging the built-in .NET 7 security machinations while also having a unified interface to your data including the Identity tables using LLBLGen, this is the project for you.
 
 The project is currently on LLBLGen Pro v.5.9.0.
 
@@ -24,13 +24,11 @@ Tests should pack out all their trash.
 
 ## Security implications
 
-We're not overriding any of the .NET 6 Identity functionality other than the User/Role stores. We simply want to change the persistence provider. As long as we're storing and retrieving the values correctly, which the tests attempt to validate, we're safely leveraging the default .NET 6 security infrastructure but with LLBLGen as the ORM.
+We're not overriding any of the Identity functionality other than the User/Role stores. We simply want to change the persistence provider. As long as we're storing and retrieving the values correctly, which the tests attempt to validate, we're safely leveraging the default .NET security infrastructure but with LLBLGen as the ORM.
 
 That *should* mean access to all of the built-in authorization attributes, such as Authorize, Authorize(Roles) and Authorize(Policies).
 
-This lets us add .NET 6 identity authentication and authorization to a legacy database easily and move it to Azure. Your use case may vary.
-
-Would love to have someone at Microsoft do a code review! (Hasn't happened yet but would be appreciated.)
+This lets us add .NET 7 identity authentication and authorization to a legacy database easily and move it to Azure. Your use case may vary.
 
 ## WebTest site details
 
@@ -42,7 +40,7 @@ There are a couple changes in this project from the default scaffolding:
 - Modified ~/Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml to include a QR code using `qrcodejs` per the example in Microsoft docs
 - HomeController Privacy method set to [Authorize]
 
-The goal is to take a database we want to move to Azure and easily add authentication and authorization by simply running a sql script to add the identity membership tables and create a unified model, with all of the tables accessible using the LLBLGen framework of your choice but with user vetting performed by the .NET 6 Identity system.
+The goal is to take a database we want to move to Azure and easily add authentication and authorization by simply running a sql script to add the identity membership tables and create a unified model, with all of the tables accessible using the LLBLGen framework of your choice but with user vetting performed by the Identity system.
 
 More tests will be added as issues are found and further examples of authorization will be added to the WebTest project in a future release. If anyone from the LLBLGen community finds this useful and wants to help make this project better, that would be great. If you just want to use it, that's ok too!
 
