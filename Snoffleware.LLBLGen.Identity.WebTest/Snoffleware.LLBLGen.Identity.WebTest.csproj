@@ -27,7 +27,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.0" />
     <PackageReference Include="SD.LLBLGen.Pro.DQE.SqlServer" Version="5.9.0" />
     <PackageReference Include="SD.LLBLGen.Pro.ORMSupportClasses" Version="5.9.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 
   <ItemGroup>
