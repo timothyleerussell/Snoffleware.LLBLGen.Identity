@@ -79,7 +79,3 @@ Code reviews by domain experts are so valuable. Don't be afraid to ask for help!
 
 8. Email is only stubbed. Currently the email output writes to the debug console. If you want to test email confirmation / forgot password functionality with an actual email service, you can implement that in `WebTest->Services->EmailSender.cs`
 
-## Changes for updating to .NET 8
-
-[TODO: Check the diffs and summarize]
-
