@@ -13,9 +13,9 @@
     <Company>Snoffleware Studios LLC</Company>
     <Authors>Timothy Lee Russell</Authors>
     <PackageProjectUrl>https://github.com/timothyleerussell/Snoffleware.LLBLGen.Identity</PackageProjectUrl>
-    <AssemblyVersion>1.0.8.0</AssemblyVersion>
-    <FileVersion>1.0.8.0</FileVersion>
-    <Version>1.0.8</Version>
+    <AssemblyVersion>1.0.9.0</AssemblyVersion>
+    <FileVersion>1.0.9.0</FileVersion>
+    <Version>1.0.9</Version>
   </PropertyGroup>
   <PropertyGroup>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
