@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+//using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+//using Microsoft.EntityFrameworkCore;
 using Snoffleware.LLBLGen.Identity.Core.Models;
 
 namespace Snoffleware.LLBLGen.Identity.WebTest.Models

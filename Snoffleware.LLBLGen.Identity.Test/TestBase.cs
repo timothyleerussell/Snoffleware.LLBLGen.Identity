@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
+﻿//using Microsoft.AspNetCore.Builder;
+//using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -49,7 +49,7 @@ namespace Snoffleware.LLBLGen.Identity.Test
         public async Task Setup()
         {
             var services = new ServiceCollection();
-            
+
             IdentityBuilder builder = services.AddIdentityCore<ApplicationUser>();
             builder.AddUserStore<UserStore>();
             builder.AddRoles<ApplicationRole>();
@@ -68,24 +68,24 @@ namespace Snoffleware.LLBLGen.Identity.Test
                 options.Password.RequireLowercase = true;
             });
 
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+            //services.Configure<CookiePolicyOptions>(options =>
+            //{
+            //    options.CheckConsentNeeded = context => true;
+            //    options.MinimumSameSitePolicy = SameSiteMode.None;
+            //});
 
-            services.AddMvcCore();
+            //services.AddMvcCore();
 
             _userManager = services.BuildServiceProvider().GetService<UserManager<ApplicationUser>>();
             _roleManager = services.BuildServiceProvider().GetService<RoleManager<ApplicationRole>>();
 
-            
+
             //LLBLGen
             //config hard-coded
             //if you want to run it without setting up the user secrets, you can just add your connection string manually
             //and comment out the 4 lines below that add the connection string using secrets
             //RuntimeConfiguration.AddConnectionString("ConnectionString.SQL Server (SqlClient)", "data source=YOURCOMPUTER\\SQLINSTANCE;initial catalog=Snoffleware-LLBLGen-Identity-Dev;integrated security=SSPI;persist security info=False");
-            
+
             ////but we don't want to do this so we will pull from the new Secret Manager store locally
             ////*** add a key to the secrets store for _each_ project that needs to access data through LLBLGen ***
             ////*** "ConnectionString.SQL Server (SqlClient)" plus your connection string ***
@@ -100,9 +100,9 @@ namespace Snoffleware.LLBLGen.Identity.Test
 
             //this doesn't work in the test project because we need to manually build the Configuration object for accessing Secret Manager
             string connectionStringKey = "ConnectionString.SQL Server (SqlClient)";
-            
+
             ConfigurationUtility.GetIConfigurationRoot();
-            string connectionStringValue = ConfigurationUtility.GetSecret(connectionStringKey);                        
+            string connectionStringValue = ConfigurationUtility.GetSecret(connectionStringKey);
             RuntimeConfiguration.AddConnectionString(connectionStringKey, connectionStringValue);
             RuntimeConfiguration.ConfigureDQE<SQLServerDQEConfiguration>(
                                             c => c.SetTraceLevel(TraceLevel.Verbose)

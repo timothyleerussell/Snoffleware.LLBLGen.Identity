@@ -1,6 +1,5 @@
 # Snoffleware.LLBLGen.Identity
-
-.NET 7 Identity custom UserStore/RoleStore implementation using LLBLGen (https://llblgen.com) as the persistence provider.
+.NET 8 Identity custom UserStore/RoleStore implementation using LLBLGen (https://llblgen.com) as the persistence provider.
 
 Author: Timothy Lee Russell / Snoffleware Studios LLC / https://snoffleware.com
 
@@ -10,9 +9,11 @@ License: MIT
 
 ## What is it and who is it for?
 
-If you use LLBLGen and .NET 7 and want to add the Microsoft identity tables to a new or existing database to provide authentication and authorization leveraging the built-in .NET 7 security machinations while also having a unified interface to your data including the Identity tables using LLBLGen, this is the project for you.
+If you use LLBLGen and .NET 8 and want to add the Microsoft identity tables to a new or existing database to provide authentication and authorization leveraging the built-in .NET 8 security machinations while also having a unified interface to your data including the Identity tables using LLBLGen, this is the project for you.
 
-The project is currently on LLBLGen Pro v.5.9.0.
+The project is currently on LLBLGen Pro v.5.11.2. You need to own an LLBLGen license so that you can generate your own db layer.
+
+This entire project is built around validating two files in Snoffleware.LLBLGen.Identity.Core. "RoleStore.cs" and "UserStore.cs". You can include them in your project using the nuGet package or by forking or by copy pasta.
 
 ## Tests
 
@@ -32,7 +33,7 @@ This lets us add Identity authentication and authorization to a legacy database 
 
 ## WebTest site details
 
-The `WebTest` project currently uses the 3.0 version of the scaffolded mvc identity area.
+The `WebTest` project currently uses the 3.0 [actually v2.2 but it didn't change or I didn't diff it by the TODO later one] version of the scaffolded mvc identity area, slightly modified. AFAIK, MS does not include the ability in .NET 8 to auto-generate the UI. The UI generated here is a good starting place though - as the db schema interface and general workings have been pretty stable since 3.x and don't appear to have changed much. I upgraded this to .NET 8 and all the tests passed with no changes although the web project did require minor modifications.
 
 There are a couple changes in this project from the default scaffolding:
 
@@ -77,4 +78,8 @@ Code reviews by domain experts are so valuable. Don't be afraid to ask for help!
 7. At this point, you should be able to run the `Test` and `WebTest` projects. You can register a user, login and view the protected Privacy page. You can also click on the profile link and edit the user using the default Microsoft UI. App-based 2FA (TOTP) is hooked up with QR codes provided by `qrcodejs`.
 
 8. Email is only stubbed. Currently the email output writes to the debug console. If you want to test email confirmation / forgot password functionality with an actual email service, you can implement that in `WebTest->Services->EmailSender.cs`
+
+## Changes for updating to .NET 8
+
+[TODO: Check the diffs and summarize]
 

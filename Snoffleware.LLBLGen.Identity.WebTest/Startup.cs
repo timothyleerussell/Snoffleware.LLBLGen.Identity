@@ -24,7 +24,7 @@ namespace Snoffleware.LLBLGen.Identity.WebTest
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-        }       
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -36,6 +36,8 @@ namespace Snoffleware.LLBLGen.Identity.WebTest
             // we're going to use AddIdentityCore because it sounds more Core-y.
             //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            //services.AddSingleton<TimeProvider>();
 
             IdentityBuilder builder = services.AddIdentityCore<ApplicationUser>()
                 .AddUserStore<UserStore>()
@@ -49,10 +51,13 @@ namespace Snoffleware.LLBLGen.Identity.WebTest
                 //TODO Microsoft: should be able to specify custom user/role types to the scaffolder, the UI of that tool suggests it's possible but has some validation issues
                 //that make it not possible in my attempts. Then it wouldn't be necessary to physically scaffold the ui, just the provide the updated custom user/role types in the 
                 //ViewImports. Maybe I'm just missing the "right" way to do this.
-                .AddDefaultUI()
+
+                //TODO: does not work in .net 8 - AddDefaultUI doesn't exist / does not appear to be a replacement, research
+                //.AddDefaultUI()
+
                 .AddSignInManager<SignInManager<ApplicationUser>>()
                 .AddUserManager<UserManager<ApplicationUser>>()
-                .AddRoleManager<RoleManager<ApplicationRole>>()                
+                .AddRoleManager<RoleManager<ApplicationRole>>()
                 .AddDefaultTokenProviders();
 
 
@@ -66,7 +71,7 @@ namespace Snoffleware.LLBLGen.Identity.WebTest
             //
             //*** AddIdentityCore() registers this ***
             //services.AddScoped<IUserValidator<ApplicationUser>, UserValidator<ApplicationUser>>();
-            
+
             //*** AddIdentityCore() registers this ***
             //services.AddScoped<IPasswordValidator<ApplicationUser>, PasswordValidator<ApplicationUser>>();
 
@@ -107,8 +112,13 @@ namespace Snoffleware.LLBLGen.Identity.WebTest
             //https://github.com/aspnet/AspNetCore/issues/4428
             //suggests services.AddScoped<ISystemClock, SystemClock>();
             //but should be a singleton?
-            services.AddSingleton<ISystemClock, SystemClock>();
-            #endregion  
+
+            ////.net 8: needs to be before AddIdentityCore?
+            ////.net 8: ISystemClock is deprecated: Use 'TimeProvider' instead
+            ////services.AddSingleton<ISystemClock, SystemClock>();
+            //services.AddSingleton<TimeProvider>();
+
+            #endregion
 
             //these "Schemes" appear to be the switches to control what cookies gets written where and when
             //but scarse documentation
@@ -125,7 +135,7 @@ namespace Snoffleware.LLBLGen.Identity.WebTest
             //Don't know what the best practices are for these cookies
             //currently they are cloned, except for the name.
             //The minimum to get the example to compile for some simple front-end tests...
-            
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
@@ -196,7 +206,7 @@ namespace Snoffleware.LLBLGen.Identity.WebTest
 
                     options.LoginPath = $"/Identity/Account/Login";
                     options.LogoutPath = $"/Identity/Account/Logout";
-                    options.AccessDeniedPath = $"/Identity/Account/AccessDenied";                    
+                    options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
                 });
 
             services.Configure<IdentityOptions>(options =>
