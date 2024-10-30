@@ -8,7 +8,11 @@ namespace Snoffleware.LLBLGen.Identity.Core.Models
         public ApplicationUser()
         { 
         }
-        
+        public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
+        public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
+        public virtual ICollection<IdentityUserToken<string>> Tokens { get; set; }
+        public virtual ICollection<IdentityUserRole<string>> UserRoles { get; set; }
+
         //set some defaults so that things work out of the box 
         //you should change these for your application
         public string AuthenticatorKey { get; set; }
