@@ -107,24 +107,24 @@ namespace Snoffleware.LLBLGen.Identity.Test
         public async Task GetClaimsAndRemoveDefaultRoleClaim()
         {
             var defaultRole = await _roleManager.FindByNameAsync(defaultAdminRole);
-            if(defaultRole != null)
+            if (defaultRole != null)
             {
                 var claims = await _roleManager.GetClaimsAsync(defaultRole);
-                
+
                 IList<Claim> claimsToRemove = new List<Claim>();
-                foreach(Claim claim in claims)
+                foreach (Claim claim in claims)
                 {
                     if (claim.Type == claimType && claim.Value == claim1Value)
                     {
                         claimsToRemove.Add(claim);
                     }
                 }
-                foreach(Claim claim in claimsToRemove)
+                foreach (Claim claim in claimsToRemove)
                 {
                     var result = await _roleManager.RemoveClaimAsync(defaultRole, claim);
                     Assert.IsTrue(result.Succeeded);
-                }                
-            }            
+                }
+            }
         }
         [TestMethod]
         public async Task GetAllRolesUsingIQueryable()
@@ -154,7 +154,7 @@ namespace Snoffleware.LLBLGen.Identity.Test
             };
             var result4 = await _roleManager.CreateAsync(role4);
             Assert.IsTrue(result4.Succeeded);
-            
+
             var roles = _roleManager.Roles;
             Assert.IsInstanceOfType(roles, typeof(IQueryable<ApplicationRole>));
             Assert.IsNotNull(roles);
@@ -193,16 +193,69 @@ namespace Snoffleware.LLBLGen.Identity.Test
 
             Assert.IsTrue(roles.Where(x => x.Name.Contains("azaza")).Count() == 0);
         }
+
+
+
+
+        [TestMethod]
+        public async Task CreateAndDeleteRole()
+        {
+            var roleName = "RandomRole100";
+            var result = await _roleManager.CreateAsync(new ApplicationRole(roleName));
+            Assert.IsTrue(result.Succeeded);
+
+            var role = await _roleManager.FindByNameAsync(roleName);
+            var deleted = await _roleManager.DeleteAsync(role);
+            Assert.IsTrue(deleted.Succeeded);
+        }
+
+        [TestMethod]
+        public async Task CreateRoleAndRoleClaims()
+        {
+            var roleName = "RandomRole100";
+            var result = await _roleManager.CreateAsync(new ApplicationRole(roleName));
+            Assert.IsTrue(result.Succeeded);
+
+            var role = await _roleManager.FindByNameAsync(roleName);
+
+            var permission1 = "ReportView";
+            var permission2 = "ReportExport";
+            var permission3 = "ReportEdit";
+
+            if(role != null)
+            {
+                await _roleManager.AddClaimAsync(role, new Claim("Permission", permission1));
+                await _roleManager.AddClaimAsync(role, new Claim("Permission", permission2));
+                await _roleManager.AddClaimAsync(role, new Claim("Permission", permission3));
+            }
+
+            var claims = await _roleManager.GetClaimsAsync(role);
+
+            var claim1 = claims.Where(x => x.Type == "Permission" && x.Value == permission1).FirstOrDefault();
+            var claim2 = claims.Where(x => x.Type == "Permission" && x.Value == permission2).FirstOrDefault();
+            var claim3 = claims.Where(x => x.Type == "Permission" && x.Value == permission3).FirstOrDefault();
+
+            Assert.IsTrue(claim1.Type == "Permission" && claim1.Value == permission1);
+            Assert.IsTrue(claim2.Type == "Permission" && claim2.Value == permission2);
+            Assert.IsTrue(claim3.Type == "Permission" && claim3.Value == permission3);
+
+            var deleted = await _roleManager.DeleteAsync(role);
+            Assert.IsTrue(deleted.Succeeded);
+        }
+
+
+
+
         [TestCleanup]
         public async Task CleanUp()
         {
             var role = await _roleManager.FindByNameAsync(defaultAdminRole);
-            if(role != null)
+            if (role != null)
             {
                 await _roleManager.DeleteAsync(role);
             }
             role = await _roleManager.FindByNameAsync("newname");
-            if(role != null)
+            if (role != null)
             {
                 await _roleManager.DeleteAsync(role);
             }
