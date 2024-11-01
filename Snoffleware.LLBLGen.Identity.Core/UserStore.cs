@@ -170,9 +170,9 @@ namespace Snoffleware.LLBLGen.Identity.Core
                     userRole.UserId = user.Id;
                     userRole.RoleId = role.Id;
                 
-                    await adapter.SaveEntityAsync(userRole, cancellationToken);
+                    var success = await adapter.SaveEntityAsync(userRole, cancellationToken);                    
                 }
-            }
+            }            
         }
         public async Task<int> CountCodesAsync(ApplicationUser user, CancellationToken cancellationToken)
         {

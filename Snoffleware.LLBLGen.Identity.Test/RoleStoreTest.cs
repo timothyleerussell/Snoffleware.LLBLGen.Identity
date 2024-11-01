@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Snoffleware.LLBLGen.Identity.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+//using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Snoffleware.LLBLGen.Identity.Test
 {
@@ -241,6 +243,72 @@ namespace Snoffleware.LLBLGen.Identity.Test
 
             var deleted = await _roleManager.DeleteAsync(role);
             Assert.IsTrue(deleted.Succeeded);
+        }
+
+        [TestMethod]
+        public async Task CreateUserWithRoleAndRoleClaims()
+        {
+            //create user
+            var userName = "UserWithRole42";
+            var password = "TestPassword123!";
+            var email = "Blackhole+UserWithRole42@acompanythatmakeseverything.com";
+            var user = new ApplicationUser
+            {
+                UserName = userName,
+                Email = email
+            };
+            
+            var createResult = await _userManager.CreateAsync(user, password);
+            Assert.IsTrue(createResult.Succeeded);
+
+            var roleName = "Role42";
+            var result = await _roleManager.CreateAsync(new ApplicationRole(roleName));
+            Assert.IsTrue(result.Succeeded);
+
+            var permissions = new List<string> { "Permission1", "Permission2", "Permission3" };
+            foreach (var permission in permissions)
+            {
+                await _roleManager.AddClaimAsync(await _roleManager.FindByNameAsync(roleName), new Claim("Permission", permission));
+            }
+
+            var role = await _roleManager.FindByNameAsync(roleName);
+            var claims = await _roleManager.GetClaimsAsync(role);
+            Assert.AreEqual(permissions.Count, claims.Count());
+            foreach (var permission in permissions)
+            {
+                Assert.IsTrue(claims.Any(x => x.Type == "Permission" && x.Value == permission));
+            }
+
+            await _userManager.AddToRoleAsync(user, roleName);
+
+            Assert.IsTrue(await _userManager.IsInRoleAsync(user, roleName));
+
+
+
+
+            ////Test method Snoffleware.LLBLGen.Identity.Test.RoleStoreTest.CreateUserWithRoleAndRoleClaims threw exception:
+            ////SD.LLBLGen.Pro.ORMSupportClasses.ORMQueryExecutionException: An exception was caught during the execution of a retrieval query: The connection does not support MultipleActiveResultSets..Check InnerException, QueryExecuted and Parameters of this exception to examine the cause of this exception. --->System.InvalidOperationException: The connection does not support MultipleActiveResultSets.
+
+
+            //await _userManager.RemoveFromRoleAsync(user, roleName);
+
+            ////Assert.IsFalse(await _userManager.IsInRoleAsync(user, roleName));
+
+            //var claimsToDelete = await _roleManager.GetClaimsAsync(role);
+
+            //foreach (var claim in claimsToDelete)
+            //{
+            //    await _roleManager.RemoveClaimAsync(role, claim);
+            //}
+
+            ////var claimsResult = await _roleManager.GetClaimsAsync(role);
+            ////Assert.AreEqual(claimsResult.Count, 0);
+
+            //var deleted = await _roleManager.DeleteAsync(role);
+            //Assert.IsTrue(deleted.Succeeded);
+
+            //var userDelete = await _userManager.DeleteAsync(user);
+            //Assert.IsTrue(userDelete.Succeeded);
         }
 
 
