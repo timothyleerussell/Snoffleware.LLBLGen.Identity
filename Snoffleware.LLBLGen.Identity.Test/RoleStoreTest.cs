@@ -285,55 +285,24 @@ namespace Snoffleware.LLBLGen.Identity.Test
 
             Assert.IsTrue(await _userManager.IsInRoleAsync(user, roleName));
 
+            await _userManager.RemoveFromRoleAsync(user, roleName);
+            Assert.IsFalse(await _userManager.IsInRoleAsync(user, roleName));
 
-            //doesn't work -
-            //    Test method Snoffleware.LLBLGen.Identity.Test.RoleStoreTest.CreateUserWithRoleAndRoleClaims threw exception: 
-            //SD.LLBLGen.Pro.ORMSupportClasses.ORMQueryExecutionException: An exception was caught during the execution of a retrieval query: The connection does not support MultipleActiveResultSets..Check InnerException, QueryExecuted and Parameters of this exception to examine the cause of this exception. --->System.InvalidOperationException: The connection does not support MultipleActiveResultSets.
+            var claimsToDelete = await _roleManager.GetClaimsAsync(role);
 
-            //await _userManager.RemoveFromRoleAsync(user, roleName);
-            //Assert.IsFalse(await _userManager.IsInRoleAsync(user, roleName));
+            foreach (var claim in claimsToDelete)
+            {
+                await _roleManager.RemoveClaimAsync(role, claim);
+            }
 
+            var claimsResult = await _roleManager.GetClaimsAsync(role);
+            Assert.AreEqual(0, claimsResult.Count());
 
+            var deleted = await _roleManager.DeleteAsync(role);
+            Assert.IsTrue(deleted.Succeeded);
 
-
-
-
-
-
-
-
-
-
-
-            //this fails due to multipleresultsets, what are the implications of this?
-
-            //await _userManager.RemoveFromRoleAsync(user, roleName);
-            //Assert.IsFalse(await _userManager.IsInRoleAsync(user, roleName));
-
-
-            ////Test method Snoffleware.LLBLGen.Identity.Test.RoleStoreTest.CreateUserWithRoleAndRoleClaims threw exception:
-            ////SD.LLBLGen.Pro.ORMSupportClasses.ORMQueryExecutionException: An exception was caught during the execution of a retrieval query: The connection does not support MultipleActiveResultSets..Check InnerException, QueryExecuted and Parameters of this exception to examine the cause of this exception. --->System.InvalidOperationException: The connection does not support MultipleActiveResultSets.
-
-
-            //await _userManager.RemoveFromRoleAsync(user, roleName);
-
-            ////Assert.IsFalse(await _userManager.IsInRoleAsync(user, roleName));
-
-            //var claimsToDelete = await _roleManager.GetClaimsAsync(role);
-
-            //foreach (var claim in claimsToDelete)
-            //{
-            //    await _roleManager.RemoveClaimAsync(role, claim);
-            //}
-
-            ////var claimsResult = await _roleManager.GetClaimsAsync(role);
-            ////Assert.AreEqual(claimsResult.Count, 0);
-
-            //var deleted = await _roleManager.DeleteAsync(role);
-            //Assert.IsTrue(deleted.Succeeded);
-
-            //var userDelete = await _userManager.DeleteAsync(user);
-            //Assert.IsTrue(userDelete.Succeeded);
+            var userDelete = await _userManager.DeleteAsync(user);
+            Assert.IsTrue(userDelete.Succeeded);
         }
 
         [TestCleanup]

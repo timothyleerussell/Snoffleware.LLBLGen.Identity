@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using SD.LLBLGen.Pro.QuerySpec;
 using SD.LLBLGen.Pro.QuerySpec.Adapter;
 using Snoffleware.LLBLGen.Identity.Core.Data.DatabaseSpecific;
@@ -565,7 +565,7 @@ namespace Snoffleware.LLBLGen.Identity.Core
                 var qf = new QueryFactory();
                 var roleQ = qf.AspNetRole.Where(AspNetRoleFields.NormalizedName.Equal(roleName));
 
-                var roleEntity = adapter.FetchFirstAsync(roleQ, cancellationToken);
+                var roleEntity = await adapter.FetchFirstAsync(roleQ, cancellationToken);
 
                 if (roleEntity != null)
                 {
