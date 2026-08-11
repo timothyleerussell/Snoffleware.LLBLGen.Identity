@@ -31,10 +31,10 @@ jobs:
         run: dotnet pack -c Release -o ./out --no-build
 
       - name: Authenticate with NuGet (OIDC)
-        id: nuget-login
+        id: login
         uses: NuGet/login@v1
         with:
           user: 'timothyleerussell'
 
       - name: Publish to NuGet
-        run: dotnet nuget push "./out/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{ steps.nuget-login.outputs.nuget-api-key }} --skip-duplicate --no-symbols
+        run: dotnet nuget push "./out/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --skip-duplicate --no-symbols
