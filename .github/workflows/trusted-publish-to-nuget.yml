@@ -2,8 +2,8 @@ name: Publish Package
 
 on:
   #temporary
-  push:
-    branches: [ Update-trusted-publish-to-nuget ]
+  #push:
+  #  branches: [ Update-trusted-publish-to-nuget ]
   release:
     types: [published]
 
