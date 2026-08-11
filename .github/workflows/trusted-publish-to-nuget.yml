@@ -21,8 +21,11 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - name: Build & Pack
-        run: dotnet pack -c Release -o ./out
+      - name: Build Solution
+        run: dotnet build -c Release
+
+      - name: Pack Packages
+        run: dotnet pack -c Release -o ./out --no-build
 
       - name: Authenticate with NuGet (OIDC)
         uses: NuGet/login@v1
