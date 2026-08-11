@@ -8,26 +8,26 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET 10
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
-      env:
-        NUGET_AUTH_TOKEN: ${{secrets.NUGET_TOKEN}}
+        dotnet-version: '10.0.x'
+
     - name: Restore dependencies
       run: dotnet restore
+
     - name: Build
       run: dotnet build --configuration Release --no-restore
+
     - name: Publish nuget package
-      run: | # | character makes the "run" property multi-line, so we can put multiple commands in the same step
+      run: |
         mkdir __out
         dotnet pack -c Release -o __out --no-restore
-        dotnet nuget push "./__out/*.nupkg" --skip-duplicate --no-symbols --api-key ${{secrets.NUGET_TOKEN}} --source https://api.nuget.org/v3/index.json
+        dotnet nuget push "./__out/*.nupkg" --skip-duplicate --no-symbols --api-key ${{ secrets.NUGET_TOKEN }} --source https://api.nuget.org/v3/index.json
         rm -rf __out
-
-    
