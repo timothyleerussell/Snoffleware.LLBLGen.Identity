@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Snoffleware.LLBLGen.Identity.Core;
 using Snoffleware.LLBLGen.Identity.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -713,6 +715,186 @@ namespace Snoffleware.LLBLGen.Identity.Test
 
             IdentityResult deleteResult = await _userManager.RemoveAuthenticationTokenAsync(user, loginProvider, authenticatorKeyTokenName);
             Assert.IsTrue(result.Succeeded);
+        }
+        #endregion
+
+        #region DI Registration & Resolution
+        [TestMethod]
+        public void VerifyDIRegistrationAndStoreResolutions()
+        {
+            var services = new Microsoft.Extensions.DependencyInjection.ServiceCollection();
+            
+            // Add Identity services using our stores
+            services.AddIdentityCore<ApplicationUser>(options => { })
+                .AddUserStore<UserStore>()
+                .AddRoles<ApplicationRole>()
+                .AddRoleStore<RoleStore>();
+
+            // Register necessary logging and options to satisfy dependencies
+            services.AddLogging();
+            services.AddOptions();
+
+            var serviceProvider = services.BuildServiceProvider();
+
+            // Resolve and verify UserManager and RoleManager are instantiated successfully
+            var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
+            var roleManager = serviceProvider.GetService<RoleManager<ApplicationRole>>();
+
+            Assert.IsNotNull(userManager);
+            Assert.IsNotNull(roleManager);
+        }
+        #endregion
+
+        #region Null-Safety & Boundary Conditions
+        [TestMethod]
+        public async Task CreateAndUpdateUserWithNullEmailDirectly()
+        {
+            var suffix = Guid.NewGuid().ToString("N").Substring(0, 8);
+            var userName = "NullEmailUser_" + suffix;
+            var user = new ApplicationUser
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserName = userName,
+                Email = null // Null Email!
+            };
+
+            var store = new UserStore();
+
+            // Test Create directly via store
+            var createResult = await store.CreateAsync(user, default);
+            Assert.IsTrue(createResult.Succeeded);
+
+            // Fetch
+            var fetchedUser = await store.FindByNameAsync(userName.ToUpperInvariant(), default);
+            Assert.IsNotNull(fetchedUser);
+            Assert.IsNull(fetchedUser.Email);
+            Assert.IsNull(fetchedUser.NormalizedEmail);
+
+            // Test Update directly via store
+            fetchedUser.PhoneNumber = "999-999-9999";
+            var updateResult = await store.UpdateAsync(fetchedUser, default);
+            Assert.IsTrue(updateResult.Succeeded);
+
+            var updatedUser = await store.FindByNameAsync(userName.ToUpperInvariant(), default);
+            Assert.IsNotNull(updatedUser);
+            Assert.IsNull(updatedUser.Email);
+            Assert.IsNull(updatedUser.NormalizedEmail);
+            Assert.AreEqual("999-999-9999", updatedUser.PhoneNumber);
+
+            // Cleanup
+            var deleteResult = await store.DeleteAsync(updatedUser, default);
+            Assert.IsTrue(deleteResult.Succeeded);
+        }
+
+        [TestMethod]
+        public async Task SearchWithNullOrEmptyInputsThrowsCorrectly()
+        {
+            // Finding by null or empty should throw standard ArgumentNullException in UserManager for name and email
+            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => _userManager.FindByNameAsync(null));
+            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => _userManager.FindByEmailAsync(null));
+            
+            // Finding by null ID should return null gracefully without throwing (handled by store query spec)
+            Assert.IsNull(await _userManager.FindByIdAsync(null));
+        }
+        #endregion
+
+        #region Two-Factor & Security Stamp
+        [TestMethod]
+        public async Task ToggleTwoFactorAuthenticationState()
+        {
+            var user = await _userManager.FindByNameAsync(defaultUserName);
+            Assert.IsNotNull(user);
+
+            // Turn on 2FA
+            var resultEnable = await _userManager.SetTwoFactorEnabledAsync(user, true);
+            Assert.IsTrue(resultEnable.Succeeded);
+
+            var userEnabled = await _userManager.FindByNameAsync(defaultUserName);
+            Assert.IsTrue(userEnabled.TwoFactorEnabled);
+
+            // Turn off 2FA
+            var resultDisable = await _userManager.SetTwoFactorEnabledAsync(userEnabled, false);
+            Assert.IsTrue(resultDisable.Succeeded);
+
+            var userDisabled = await _userManager.FindByNameAsync(defaultUserName);
+            Assert.IsFalse(userDisabled.TwoFactorEnabled);
+        }
+
+        [TestMethod]
+        public async Task VerifyExplicitSecurityStampOperations()
+        {
+            var user = await _userManager.FindByNameAsync(defaultUserName);
+            Assert.IsNotNull(user);
+
+            var originalStamp = await _userManager.GetSecurityStampAsync(user);
+
+            // Update security stamp explicitly
+            var updateResult = await _userManager.UpdateSecurityStampAsync(user);
+            Assert.IsTrue(updateResult.Succeeded);
+
+            var updatedUser = await _userManager.FindByNameAsync(defaultUserName);
+            var newStamp = await _userManager.GetSecurityStampAsync(updatedUser);
+
+            Assert.AreNotEqual(originalStamp, newStamp);
+            Assert.IsFalse(string.IsNullOrEmpty(newStamp));
+        }
+        #endregion
+
+        #region Complex Queryable Operations
+        [TestMethod]
+        public async Task VerifyComplexQueryableFilteringPagingAndSorting()
+        {
+            // Create a few users with ordered usernames
+            var usersToCreate = new List<ApplicationUser>
+            {
+                new ApplicationUser { UserName = "QueryUserC", Email = "c@query.com" },
+                new ApplicationUser { UserName = "QueryUserA", Email = "a@query.com" },
+                new ApplicationUser { UserName = "QueryUserB", Email = "b@query.com" }
+            };
+
+            foreach (var u in usersToCreate)
+            {
+                var createResult = await _userManager.CreateAsync(u, defaultPassword);
+                Assert.IsTrue(createResult.Succeeded);
+            }
+
+            try
+            {
+                // Verify OrderBy, Filter, and Projection translates correctly via LLBLGen LINQ provider
+                var sortedUsers = _userManager.Users
+                    .Where(u => u.UserName.StartsWith("QueryUser"))
+                    .OrderBy(u => u.UserName)
+                    .Select(u => new { u.UserName, u.Email })
+                    .ToList();
+
+                Assert.AreEqual(3, sortedUsers.Count);
+                Assert.AreEqual("QueryUserA", sortedUsers[0].UserName);
+                Assert.AreEqual("QueryUserB", sortedUsers[1].UserName);
+                Assert.AreEqual("QueryUserC", sortedUsers[2].UserName);
+
+                // Verify Pagination (Skip/Take)
+                var pagedUsers = _userManager.Users
+                    .Where(u => u.UserName.StartsWith("QueryUser"))
+                    .OrderBy(u => u.UserName)
+                    .Skip(1)
+                    .Take(1)
+                    .ToList();
+
+                Assert.AreEqual(1, pagedUsers.Count);
+                Assert.AreEqual("QueryUserB", pagedUsers[0].UserName);
+            }
+            finally
+            {
+                // Cleanup
+                foreach (var u in usersToCreate)
+                {
+                    var fetched = await _userManager.FindByNameAsync(u.UserName);
+                    if (fetched != null)
+                    {
+                        await _userManager.DeleteAsync(fetched);
+                    }
+                }
+            }
         }
         #endregion
         

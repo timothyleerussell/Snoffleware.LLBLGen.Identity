@@ -197,9 +197,9 @@ namespace Snoffleware.LLBLGen.Identity.Core
                 AspNetUserEntity userEntity = new AspNetUserEntity();
                 userEntity.Id = user.Id;
                 userEntity.UserName = user.UserName;
-                userEntity.NormalizedUserName = user.UserName.ToUpper();
+                userEntity.NormalizedUserName = user.UserName?.ToUpper();
                 userEntity.Email = user.Email;
-                userEntity.NormalizedEmail = user.Email.ToUpper();
+                userEntity.NormalizedEmail = user.Email?.ToUpper();
                 userEntity.EmailConfirmed = user.EmailConfirmed;
                 userEntity.PasswordHash = user.PasswordHash;
                 userEntity.SecurityStamp = user.SecurityStamp;
@@ -791,9 +791,9 @@ namespace Snoffleware.LLBLGen.Identity.Core
                 {
                     userEntity.Id = user.Id;
                     userEntity.UserName = user.UserName;
-                    userEntity.NormalizedUserName = user.UserName.ToUpper();
+                    userEntity.NormalizedUserName = user.UserName?.ToUpper();
                     userEntity.Email = user.Email;
-                    userEntity.NormalizedEmail = user.Email.ToUpper();
+                    userEntity.NormalizedEmail = user.Email?.ToUpper();
                     userEntity.EmailConfirmed = user.EmailConfirmed;
                     userEntity.PasswordHash = user.PasswordHash;
                     userEntity.SecurityStamp = user.SecurityStamp;
