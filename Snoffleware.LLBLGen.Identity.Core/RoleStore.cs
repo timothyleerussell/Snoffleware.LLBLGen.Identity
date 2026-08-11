@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -209,11 +209,7 @@ namespace Snoffleware.LLBLGen.Identity.Core
 
                 if (roleClaimEntity != null)
                 {
-                    roleClaimEntity.RoleId = role.Id;
-                    roleClaimEntity.ClaimType = claim.Type;
-                    roleClaimEntity.ClaimValue = claim.Value;
-
-                    await adapter.SaveEntityAsync(roleClaimEntity, cancellationToken);
+                    await adapter.DeleteEntityAsync(roleClaimEntity, cancellationToken);
                 }
             }
         }

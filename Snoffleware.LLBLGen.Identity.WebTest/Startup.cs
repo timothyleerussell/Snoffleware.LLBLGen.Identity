@@ -279,6 +279,7 @@ namespace Snoffleware.LLBLGen.Identity.WebTest
             //https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets/
 
             //example powershell command in README...
+            //remember that the connection string is different for .net 8 and .net 10
 
             string connectionStringKey = "ConnectionString.SQL Server (SqlClient)";
             string connectionStringValue = Configuration[connectionStringKey];
@@ -287,7 +288,7 @@ namespace Snoffleware.LLBLGen.Identity.WebTest
             RuntimeConfiguration.ConfigureDQE<SQLServerDQEConfiguration>(
                                             c => c.SetTraceLevel(TraceLevel.Verbose)
                                                     //.AddCatalogNameOverwrite("Snoffleware-LLBLGen-Identity-Dev", "")  //may be necessary on azure
-                                                    .AddDbProviderFactory(typeof(System.Data.SqlClient.SqlClientFactory))
+                                                    .AddDbProviderFactory(typeof(Microsoft.Data.SqlClient.SqlClientFactory))
                                                     .SetDefaultCompatibilityLevel(SqlServerCompatibilityLevel.SqlServer2012));
 
         }

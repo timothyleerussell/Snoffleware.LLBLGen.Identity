@@ -1,0 +1,33 @@
+name: Publish Package
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write  # Required to issue OIDC token for nuget.org
+      contents: read   # Required to checkout code
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build & Pack
+        run: dotnet pack -c Release -o ./out
+
+      - name: Authenticate with NuGet (OIDC)
+        uses: NuGet/login@v1
+        with:
+          user: 'timothyleerussell'
+
+      - name: Publish to NuGet
+        run: dotnet nuget push "./out/*.nupkg" --source https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols

@@ -1,0 +1,33 @@
+name: Update nuget package
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET 10
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Publish nuget package
+      run: |
+        mkdir __out
+        dotnet pack -c Release -o __out --no-restore
+        dotnet nuget push "./__out/*.nupkg" --skip-duplicate --no-symbols --api-key ${{ secrets.NUGET_TOKEN }} --source https://api.nuget.org/v3/index.json
+        rm -rf __out

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using SD.LLBLGen.Pro.QuerySpec;
 using SD.LLBLGen.Pro.QuerySpec.Adapter;
 using Snoffleware.LLBLGen.Identity.Core.Data.DatabaseSpecific;
@@ -170,9 +170,9 @@ namespace Snoffleware.LLBLGen.Identity.Core
                     userRole.UserId = user.Id;
                     userRole.RoleId = role.Id;
                 
-                    await adapter.SaveEntityAsync(userRole, cancellationToken);
+                    var success = await adapter.SaveEntityAsync(userRole, cancellationToken);                    
                 }
-            }
+            }            
         }
         public async Task<int> CountCodesAsync(ApplicationUser user, CancellationToken cancellationToken)
         {
@@ -197,9 +197,9 @@ namespace Snoffleware.LLBLGen.Identity.Core
                 AspNetUserEntity userEntity = new AspNetUserEntity();
                 userEntity.Id = user.Id;
                 userEntity.UserName = user.UserName;
-                userEntity.NormalizedUserName = user.UserName.ToUpper();
+                userEntity.NormalizedUserName = user.UserName?.ToUpper();
                 userEntity.Email = user.Email;
-                userEntity.NormalizedEmail = user.Email.ToUpper();
+                userEntity.NormalizedEmail = user.Email?.ToUpper();
                 userEntity.EmailConfirmed = user.EmailConfirmed;
                 userEntity.PasswordHash = user.PasswordHash;
                 userEntity.SecurityStamp = user.SecurityStamp;
@@ -565,7 +565,7 @@ namespace Snoffleware.LLBLGen.Identity.Core
                 var qf = new QueryFactory();
                 var roleQ = qf.AspNetRole.Where(AspNetRoleFields.NormalizedName.Equal(roleName));
 
-                var roleEntity = adapter.FetchFirstAsync(roleQ, cancellationToken);
+                var roleEntity = await adapter.FetchFirstAsync(roleQ, cancellationToken);
 
                 if (roleEntity != null)
                 {
@@ -791,9 +791,9 @@ namespace Snoffleware.LLBLGen.Identity.Core
                 {
                     userEntity.Id = user.Id;
                     userEntity.UserName = user.UserName;
-                    userEntity.NormalizedUserName = user.UserName.ToUpper();
+                    userEntity.NormalizedUserName = user.UserName?.ToUpper();
                     userEntity.Email = user.Email;
-                    userEntity.NormalizedEmail = user.Email.ToUpper();
+                    userEntity.NormalizedEmail = user.Email?.ToUpper();
                     userEntity.EmailConfirmed = user.EmailConfirmed;
                     userEntity.PasswordHash = user.PasswordHash;
                     userEntity.SecurityStamp = user.SecurityStamp;
