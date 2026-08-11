@@ -64,8 +64,16 @@ Code reviews by domain experts are so valuable. Don't be afraid to ask for help!
 3. Set secret connection string for the `Test` AND `WebTest` projects with your `data source` and `initial catalog` values. Repeat the command in each directory.
 
 	To set the secret, open a Powershell prompt inside each project directory and run the `dotnet user-secrets set` command. Following the security practice of keeping secrets outside of your code can help to prevent credential leaks.	   
+	** .net 8 **
+
 	`
 	PS> dotnet user-secrets set "ConnectionString.SQL Server (SqlClient)" "data source=YOURCOMPUTER\SQLINSTANCE;initial catalog=Snoffleware-LLBLGen-Identity-Dev;integrated security=SSPI;persist security info=False"
+	`
+
+	** .net 10 - due to Microsoft.Data.SqlClient update **
+
+	`
+	PS> dotnet user-secrets set "ConnectionString.SQL Server (SqlClient)" "data source=YOURCOMPUTER\SQLINSTANCE;initial catalog=Snoffleware-LLBLGen-Identity-Dev;integrated security=SSPI;persist security info=False;TrustServerCertificate=True;Encrypt=True;"
 	`
 4. Change the UserSecrets guid in the `Test` project -> `ConfigurationUtility` class.
 	This guid needs to match up with your user secrets store. You can find this guid after you setup user secrets by editing the `Test` project's `.csproj` file.

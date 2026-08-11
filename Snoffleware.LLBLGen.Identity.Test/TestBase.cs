@@ -1,4 +1,4 @@
-﻿//using Microsoft.AspNetCore.Builder;
+//using Microsoft.AspNetCore.Builder;
 //using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,8 +45,7 @@ namespace Snoffleware.LLBLGen.Identity.Test
         public static void UserStoreTest()
         { }
 
-        [ClassInitialize]
-        public async Task Setup()
+        public virtual async Task Setup()
         {
             var services = new ServiceCollection();
 
@@ -107,7 +106,7 @@ namespace Snoffleware.LLBLGen.Identity.Test
             RuntimeConfiguration.ConfigureDQE<SQLServerDQEConfiguration>(
                                             c => c.SetTraceLevel(TraceLevel.Verbose)
                                                     //.AddCatalogNameOverwrite("Snoffleware-LLBLGen-Identity-Dev", "")  //may be necessary on azure
-                                                    .AddDbProviderFactory(typeof(System.Data.SqlClient.SqlClientFactory))
+                                                    .AddDbProviderFactory(typeof(Microsoft.Data.SqlClient.SqlClientFactory))
                                                     .SetDefaultCompatibilityLevel(SqlServerCompatibilityLevel.SqlServer2012));
         }
 

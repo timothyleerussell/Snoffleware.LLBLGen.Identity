@@ -18,7 +18,7 @@ namespace Snoffleware.LLBLGen.Identity.Test
         { }
 
         [TestInitialize]
-        public async Task Setup()
+        public override async Task Setup()
         {
             await base.Setup();
 
