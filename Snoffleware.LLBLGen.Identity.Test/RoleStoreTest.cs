@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 //using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Snoffleware.LLBLGen.Identity.Test
@@ -257,7 +258,7 @@ namespace Snoffleware.LLBLGen.Identity.Test
                 UserName = userName,
                 Email = email
             };
-            
+
             var createResult = await _userManager.CreateAsync(user, password);
             Assert.IsTrue(createResult.Succeeded);
 
@@ -284,6 +285,29 @@ namespace Snoffleware.LLBLGen.Identity.Test
             Assert.IsTrue(await _userManager.IsInRoleAsync(user, roleName));
 
 
+            //doesn't work -
+            //    Test method Snoffleware.LLBLGen.Identity.Test.RoleStoreTest.CreateUserWithRoleAndRoleClaims threw exception: 
+            //SD.LLBLGen.Pro.ORMSupportClasses.ORMQueryExecutionException: An exception was caught during the execution of a retrieval query: The connection does not support MultipleActiveResultSets..Check InnerException, QueryExecuted and Parameters of this exception to examine the cause of this exception. --->System.InvalidOperationException: The connection does not support MultipleActiveResultSets.
+
+            //await _userManager.RemoveFromRoleAsync(user, roleName);
+            //Assert.IsFalse(await _userManager.IsInRoleAsync(user, roleName));
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //this fails due to multipleresultsets, what are the implications of this?
+
+            //await _userManager.RemoveFromRoleAsync(user, roleName);
+            //Assert.IsFalse(await _userManager.IsInRoleAsync(user, roleName));
 
 
             ////Test method Snoffleware.LLBLGen.Identity.Test.RoleStoreTest.CreateUserWithRoleAndRoleClaims threw exception:
@@ -310,9 +334,6 @@ namespace Snoffleware.LLBLGen.Identity.Test
             //var userDelete = await _userManager.DeleteAsync(user);
             //Assert.IsTrue(userDelete.Succeeded);
         }
-
-
-
 
         [TestCleanup]
         public async Task CleanUp()
