@@ -11,7 +11,7 @@ License: MIT
 
 If you use LLBLGen and .NET 10 and want to add the Microsoft identity tables to a new or existing database to provide authentication and authorization leveraging the built-in .NET 10 security machinations while also having a unified interface to your data including the Identity tables using LLBLGen, this is the project for you.
 
-The project is currently on LLBLGen Pro v.5.11.2. You need to own an LLBLGen license so that you can generate your own db layer.
+The project is currently on LLBLGen Pro v.5.11.3. You need to own an LLBLGen license so that you can generate your own db layer.
 
 This entire project is built around validating two files in Snoffleware.LLBLGen.Identity.Core. "RoleStore.cs" and "UserStore.cs". You can include them in your project using the nuGet package or by forking or by copy pasta.
 
