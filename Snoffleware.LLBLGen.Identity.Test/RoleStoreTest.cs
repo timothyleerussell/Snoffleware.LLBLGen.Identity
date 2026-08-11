@@ -250,9 +250,10 @@ namespace Snoffleware.LLBLGen.Identity.Test
         public async Task CreateUserWithRoleAndRoleClaims()
         {
             //create user
-            var userName = "UserWithRole42";
+            var suffix = Guid.NewGuid().ToString("N").Substring(0, 8);
+            var userName = "UserWithRole42_" + suffix;
             var password = "TestPassword123!";
-            var email = "Blackhole+UserWithRole42@acompanythatmakeseverything.com";
+            var email = $"Blackhole+UserWithRole42_{suffix}@acompanythatmakeseverything.com";
             var user = new ApplicationUser
             {
                 UserName = userName,
@@ -262,7 +263,7 @@ namespace Snoffleware.LLBLGen.Identity.Test
             var createResult = await _userManager.CreateAsync(user, password);
             Assert.IsTrue(createResult.Succeeded);
 
-            var roleName = "Role42";
+            var roleName = "Role42_" + suffix;
             var result = await _roleManager.CreateAsync(new ApplicationRole(roleName));
             Assert.IsTrue(result.Succeeded);
 
