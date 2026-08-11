@@ -36,4 +36,4 @@ jobs:
           user: 'timothyleerussell'
 
       - name: Publish to NuGet
-        run: dotnet nuget push "./out/*.nupkg" --source https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols
+        run: dotnet nuget push "./out/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{ env.NUGET_AUTH_TOKEN }} --skip-duplicate --no-symbols
